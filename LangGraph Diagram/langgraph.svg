@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1100" viewBox="0 0 1500 1100">
+<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#52647a"/></marker><marker id="arrowBlue" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#3778c2"/></marker><filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#183047" flood-opacity=".12"/></filter></defs>
+<rect width="1500" height="1100" fill="#f6f8fb"/><text x="750" y="65" text-anchor="middle" font-family="Segoe UI,Arial" font-size="34" font-weight="700" fill="#17324d">LangGraph Workflow</text>
+<style>.node{fill:#fff;stroke:#adc0d3;stroke-width:2;filter:url(#shadow)}.agent{fill:#eaf3ff;stroke:#77a7dd}.tool{fill:#e9f8f2;stroke:#75b99b}.term{fill:#eaf7ed;stroke:#78b585}.label{font:600 19px 'Segoe UI',Arial;fill:#18334d}.edge{fill:none;stroke:#52647a;stroke-width:3;marker-end:url(#arrow)}.branch{fill:none;stroke:#3778c2;stroke-width:3;stroke-dasharray:9 7;marker-end:url(#arrowBlue)}.tag{font:16px 'Segoe UI',Arial;fill:#344c63}</style>
+<rect class="term" x="675" y="100" width="150" height="54" rx="27"/><text class="label" x="750" y="135" text-anchor="middle">START</text>
+<rect class="node agent" x="560" y="205" width="380" height="70" rx="15"/><text class="label" x="750" y="248" text-anchor="middle">Initial Search Agent</text>
+<rect class="node agent" x="560" y="315" width="380" height="70" rx="15"/><text class="label" x="750" y="358" text-anchor="middle">Definition Agent</text>
+<rect class="node tool" x="560" y="425" width="380" height="70" rx="15"/><text class="label" x="750" y="468" text-anchor="middle">Context Fetch Tool</text>
+<rect class="node agent" x="560" y="535" width="380" height="70" rx="15"/><text class="label" x="750" y="578" text-anchor="middle">Footer Parsing Agent</text>
+<rect class="node agent" x="560" y="645" width="380" height="70" rx="15"/><text class="label" x="750" y="688" text-anchor="middle">Supervisor Agent</text>
+<rect class="node agent" x="1035" y="790" width="350" height="70" rx="15"/><text class="label" x="1210" y="833" text-anchor="middle">Router Agent</text>
+<rect class="node tool" x="1035" y="930" width="350" height="70" rx="15"/><text class="label" x="1210" y="973" text-anchor="middle">Recursive Retrieval</text>
+<rect class="node agent" x="115" y="790" width="350" height="70" rx="15"/><text class="label" x="290" y="833" text-anchor="middle">Answering Agent</text>
+<rect class="term" x="205" y="950" width="170" height="54" rx="27"/><text class="label" x="290" y="985" text-anchor="middle">END</text>
+<path class="edge" d="M750 154 L750 205 M750 275 L750 315 M750 385 L750 425 M750 495 L750 535 M750 605 L750 645"/>
+<!-- Explicit unconditional supervisor-to-router edge -->
+<path class="edge" d="M940 680 C1040 680 1090 715 1150 790"/><text class="tag" x="1040" y="700">unconditional edge</text>
+<!-- conditional routes -->
+<path class="branch" d="M940 675 C985 675 1000 745 1035 810"/><text class="tag" x="975" y="755">True</text>
+<path class="branch" d="M560 680 C480 680 440 730 380 790"/><text class="tag" x="450" y="720">False</text>
+<path class="branch" d="M1210 860 L1210 930"/><text class="tag" x="1230" y="900">True</text>
+<path class="branch" d="M1035 825 C850 825 660 825 465 825"/><text class="tag" x="700" y="810">False</text>
+<!-- recursive return to context fetch -->
+<path class="edge" d="M1385 965 C1460 965 1460 460 940 460"/><text class="tag" x="1260" y="630" transform="rotate(-90 1260 630)">return to Context Fetch Tool</text>
+<path class="edge" d="M290 860 L290 950"/>
+<rect x="75" y="1040" width="22" height="16" rx="4" fill="#eaf3ff" stroke="#77a7dd"/><text class="tag" x="108" y="1054">Agent</text><rect x="220" y="1040" width="22" height="16" rx="4" fill="#e9f8f2" stroke="#75b99b"/><text class="tag" x="253" y="1054">Tool</text><path d="M365 1048 h55" class="branch"/><text class="tag" x="430" y="1054">Conditional route</text><path d="M620 1048 h55" class="edge"/><text class="tag" x="685" y="1054">Unconditional edge</text>
+</svg>
