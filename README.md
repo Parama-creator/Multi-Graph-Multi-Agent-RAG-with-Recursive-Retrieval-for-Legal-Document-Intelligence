@@ -28,26 +28,26 @@ This pipeline addresses each of those by modelling document structure and links 
 ## 2. Pipeline at a glance
 
 ```
-                          ┌──────────────────────────────── INDEXING (once per document) ───────────────────────────────┐
-  PDF ──► pymupdf ──► hyperlinks (from → to coordinates)                                                                  │
-  PDF ──► Reducto ──► layout elements (type, text, page, bounding box)                                                    │
-                          │                                                                                               │
-                          ├─ match each link end to the nearest Reducto element (geometry)  ──► (source, destination) pairs│
-                          ├─ GPT-4o on definition pages ──► Definitions graph:  Term ─has_definition─► Definition          │
+                          ┌──────────────────────────────── INDEXING (once per document) ────────────────────────────────────┐
+  PDF ──► pymupdf ──► hyperlinks (from → to coordinates)                                                                     │
+  PDF ──► Reducto ──► layout elements (type, text, page, bounding box)                                                       │
+                          │                                                                                                  │
+                          ├─ match each link end to the nearest Reducto element (geometry)  ──► (source, destination) pairs  │
+                          ├─ GPT-4o on definition pages ──► Definitions graph:  Term ─has_definition─► Definition            │
                           └─ elements + pairs ──► Lexical graph: nodes (+ embeddings) and contains/is_parent/follows/links_to
-                          │                                                                                               │
-                          └─ LlamaIndex: vector index + keyword index + BM25 over all lexical-graph nodes                  │
-                          └───────────────────────────────────────────────────────────────────────────────────────────────┘
+                          │                                                                                                  │
+                          └─ LlamaIndex: vector index + keyword index + BM25 over all lexical-graph nodes                    │
+                          └──────────────────────────────────────────────────────────────────────────────────────────────────┘
 
-                          ┌──────────────────────────────── QUERY TIME (LangGraph agents) ──────────────────────────────┐
-  question ─► Initial Search ─► Definition Agent ─► Context Fetch ─► Footer Parsing ─► Supervisor ─► Router ─┐            │
-                (hybrid + prune)                    (full clauses +    (footnote        (continue /    (which links / │
-                                                     link hints)        context)         end)           footers?)     │
-                                       ▲                                                                       │       │
-                                       └──────────────── Recursive Retrieval (fetch those nodes) ◄─────────────┘       │
+                          ┌──────────────────────────────── QUERY TIME (LangGraph agents) ───────────────────────────────┐
+  question ─► Initial Search ─► Definition Agent ─► Context Fetch ─► Footer Parsing ─► Supervisor ─► Router ─┐           │
+                (hybrid + prune)                    (full clauses +    (footnote        (continue /    (which links /    │
+                                                     link hints)        context)         end)           footers?)        │
+                                       ▲                                                                       │         │
+                                       └──────────────── Recursive Retrieval (fetch those nodes) ◄─────────────┘         │
                                                                                                                          │
-                                                          nothing left to explore ─► Answering Agent ─► answer          │
-                          └───────────────────────────────────────────────────────────────────────────────────────────────┘
+                                                          nothing left to explore ─► Answering Agent ─► answer           │
+                          └──────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
