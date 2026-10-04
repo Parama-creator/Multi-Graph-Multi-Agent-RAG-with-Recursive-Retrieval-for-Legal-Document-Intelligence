@@ -88,7 +88,9 @@ A `networkx.MultiDiGraph`. Every Reducto element becomes a node.
 Extra nodes: a `Document` node (the file name) and a `Cover Page` node. Everything on page 1 hangs off the cover page; elements before the first section header attach to the document.
 
 **Embeddings:** every node's text is embedded with an OpenAI model (`text-embedding-3-small` by default; texts truncated to 20,000 characters, empty strings replaced). The model used at indexing **must** be the one used to embed queries.
-![lexical_graph](Graphs/lexical Graph.png)
+
+**Lexical Graph Visualization:**
+![lexical_graph](Graphs/LexicalGraph.png)
 
 ### 3.4 Definitions graph
 GPT-4o reads the definition pages and extracts `(term, definition)` pairs verbatim using structured output. Pairs are stored in a small `DiGraph`:
@@ -96,6 +98,11 @@ GPT-4o reads the definition pages and extracts `(term, definition)` pairs verbat
 ```
 Term ──has_definition──► Definition
 ```
+
+**Definition Graph Visualization**
+
+
+![lexical_graph](Graphs/DefinitionGraph.png)
 
 ### 3.5 Retrieval indexes (LlamaIndex)
 Each lexical-graph node is wrapped in `MultiAgentSearchLocalNode`, a `TextNode` subclass that carries the element type, embedding, metadata, **children** (to represent clause trees) and **context** (hints added during retrieval). It can print itself as a nested prompt for the LLM. Three indexes are built over these nodes:
