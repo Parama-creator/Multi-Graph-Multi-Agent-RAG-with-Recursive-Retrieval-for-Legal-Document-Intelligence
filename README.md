@@ -195,7 +195,7 @@ GPT-4o receives every collected node (previous passes and the last pass), includ
 ---
 
 ## 7. LangGraph Agentic Workflow
-![Alt text](LangGraph Diagram/langgraph.svg)
+![LangGraph_diagram](LangGraph/langgraph.svg)
 
 ---
 
