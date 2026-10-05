@@ -69,6 +69,10 @@ Hyperlinks in a PDF are stored as geometry (a rectangle on one page pointing to 
 3. The **closest Reducto element** to the link's source becomes the source node; the closest element to the destination point becomes the destination node.
 4. The result is a list of `(source_element_hash, destination_element_hash)` pairs. External URL links have no destination node and are dropped.
 
+**Document parsing example**
+![pdf_doc_parsing](docs/pdf_document_parsing_example.png)
+
+
 ### 3.3 Lexical graph
 A `networkx.MultiDiGraph`. Every Reducto element becomes a node.
 
