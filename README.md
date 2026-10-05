@@ -105,7 +105,7 @@ Term ──has_definition──► Definition
 ![lexical_graph](Graphs/DefinitionGraph.png)
 
 ### 3.5 Retrieval indexes (LlamaIndex)
-Each lexical-graph node is wrapped in `MultiAgentSearchLocalNode`, a `TextNode` subclass that carries the element type, embedding, metadata, **children** (to represent clause trees) and **context** (hints added during retrieval). It can print itself as a nested prompt for the LLM. Three indexes are built over these nodes:
+Each lexical-graph node is wrapped in `MultiAgentSearchLocalNode`, a LlamaIndex `TextNode` subclass that carries the element type, embedding, metadata, **children** (to represent clause trees) and **context** (hints added during retrieval). It can print itself as a nested prompt for the LLM. Three indexes are built over these nodes with LlamaIndex:
 
 - **Vector index** (semantic similarity, using the precomputed embeddings)
 - **Keyword table index** (simple keyword extraction)
@@ -187,27 +187,12 @@ GPT-4o receives every collected node (previous passes and the last pass), includ
 
 ---
 
-## 6. Configuration
-
-| Setting | Default | Notes |
-|---|---|---|
-| Embedding model | `text-embedding-3-small` | Must be identical at indexing and query time. `text-embedding-3-large` (3072 dims) is recommended if you use AND mode in the hybrid retriever |
-| LLM for agents | `gpt-4o-2024-08-06` | Pruning, definitions, footers, supervisor, router, answering, definition extraction |
-| Initial retrieval | 1 vector + 7 BM25, mode OR | AND mode only works well with 3072-dim embeddings |
-| Footer-driven search | 5 keyword + 3 BM25, mode OR | |
-| Token budget | 32,000 (`o200k_base`) | Checked by the supervisor |
-| Recursion limit | 150 | LangGraph |
-| Link-matching height factor | 0.96 | Reducto vertical stretch correction |
-| Definition pages | per document (e.g. pages 4-5) | Pages GPT-4o reads for terms |
-
----
-
-## 7. LangGraph Agentic Workflow
+## 6. LangGraph Agentic Workflow
 ![LangGraph_diagram](LangGraph/langgraph.png)
 
 ---
 
-## 8. Dependencies
+## 7. Dependencies
 
 `networkx` · `pymupdf` · `openai` · `pydantic` · `llama-index-core` · `llama-index-embeddings-openai` · `llama-index-llms-openai` · `llama-index-retrievers-bm25` · `PyStemmer` · `langgraph` · `langchain-core` · `tiktoken` · `pandas` · `numpy`
 
